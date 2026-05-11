@@ -16,6 +16,28 @@ axiosInstance.interceptors.request.use(
     return config;
   },
   (error) => {
+    console.log(error, "From Axios Interceptor............")
+    return Promise.reject(error);
+  }
+);
+
+axiosInstance.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  async function (error) {
+    const originalRequest = error.config;
+    if (error.response.data?.data === "Invalid Token" && !originalRequest._retry) {
+      originalRequest._retry = true;
+      try {
+        await axiosInstance.get("/auth/refreshtoken");
+        return axiosInstance(originalRequest);
+      } catch (error) {
+        
+        // window.location.href = '/login?reason=expired';
+        return Promise.reject(error);
+      }
+    }
     return Promise.reject(error);
   }
 );

@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import {
   Card,
   CardContent,
@@ -7,7 +8,11 @@ import {
 } from "@/components/ui/card";
 import LoginForm from "./LoginForm";
 
-const LoginPage = () => {
+const LoginPage = async () => {
+  const headerList = await headers();
+  const host = headerList.get("host") || "";
+  const isRootSubdomain = host.includes("root");
+
   return (
     <div className="h-screen flex justify-center items-center p-5">
       <Card className="w-full max-w-125 flex flex-col gap-6">
@@ -24,7 +29,7 @@ const LoginPage = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <LoginForm />
+          <LoginForm isRootSubdomain={isRootSubdomain} />
         </CardContent>
       </Card>
     </div>

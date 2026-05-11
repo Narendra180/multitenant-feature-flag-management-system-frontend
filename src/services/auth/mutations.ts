@@ -8,6 +8,15 @@ const loginMutationFn = async (data: LoginMutationReqBody) => {
   return dataFromApi.data;
 }
 
+const signupMutationFn = async (data: LoginMutationReqBody) => {
+  const dataFromApi = await axiosInstance.post("/auth/signup",
+    data
+  );
+  return dataFromApi.data;
+}
+
+
 export {
-  loginMutationFn
+  loginMutationFn,
+  signupMutationFn
 }

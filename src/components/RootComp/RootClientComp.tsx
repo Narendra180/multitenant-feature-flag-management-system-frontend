@@ -1,8 +1,10 @@
 "use client";
 
+import GlobalStoreProvider from "@/store/globalStore/GlobalStoreProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactNode } from "react";
 import { Toaster } from "sonner";
+import { WrapperComp } from "./WrapperComp";
 
 type Props = {
   children?: ReactNode;
@@ -10,19 +12,23 @@ type Props = {
 
 const queryClient = new QueryClient();
 
-const RootClientComponent = ({
+const RootClientComp = ({
   children
 }: Props) => {
   return (
     <QueryClientProvider
       client={queryClient}
     >
-      {children}
+      <GlobalStoreProvider>
+        <WrapperComp>
+          {children}
+        </WrapperComp>
+      </GlobalStoreProvider>
       <Toaster />
     </QueryClientProvider>
   )
 }
 
 export {
-  RootClientComponent
+  RootClientComp
 }

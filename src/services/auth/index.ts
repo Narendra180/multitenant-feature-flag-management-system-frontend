@@ -1,7 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { loginMutationFn, signupMutationFn } from "./mutations";
 import { getMeQueryFn } from "./queries";
-import { loginMutationFn } from "./mutations";
-import { LoginMutationReqBody } from "./types";
 
 const useGetMeQuery = () => {
   return useQuery({
@@ -15,7 +14,15 @@ const useLoginMutation = () => {
     mutationFn: loginMutationFn
   })
 }
+
+const useSignupMutation = () => {
+  return useMutation({
+    mutationFn: signupMutationFn
+  })
+}
+
 export {
   useGetMeQuery,
-  useLoginMutation
-}
+  useLoginMutation,
+  useSignupMutation
+};

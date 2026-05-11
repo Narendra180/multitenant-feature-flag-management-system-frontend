@@ -7,16 +7,24 @@ import { Spinner } from "@/components/ui/spinner";
 import { useLoginMutation } from "@/services/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
-import z from "zod";
 import { toast } from "sonner";
+import z from "zod";
+
+type LoginFormProps = {
+  isRootSubdomain: boolean;
+}
 
 const formSchema = z.object({
   email: z.string().min(1, { error: "Please enter email" }),
   password: z.string().min(1, { error: "Please enter password" })
 })
 
-const LoginForm = () => {
+const LoginForm = ({
+  isRootSubdomain
+}: LoginFormProps) => {
+  const router = useRouter();
 
   const loginMutation = useLoginMutation();
 
@@ -33,10 +41,12 @@ const LoginForm = () => {
       await loginMutation.mutateAsync(data);
       toast.info("Logged in successfully.", {
         position: "bottom-right"
-      })
+      });
+      form.reset();
+      router.push("/dashboard");
     } catch (err: any) {
-      console.log(err);
-      toast.error(err.message, {
+      const errMessage = err.response.data.message;
+      toast.error(errMessage, {
         position: "bottom-right",
       })
     }
@@ -92,16 +102,21 @@ const LoginForm = () => {
         </div>
 
         <div className="flex justify-end gap-4">
-          <Button
-            className="text-base h-auto px-5 py-1.5 cursor-pointer"
-            variant={"outline"}
-            type="button"
-            asChild
-          >
-            <Link href={"/signup"}>
-              Signup
-            </Link>
-          </Button>
+          {
+            !isRootSubdomain && (
+              <Button
+                className="text-base h-auto px-5 py-1.5 cursor-pointer"
+                variant={"outline"}
+                type="button"
+                asChild
+              >
+                <Link href={"/signup"}>
+                  Signup
+                </Link>
+              </Button>
+            )
+          }
+
           <Button
             className="text-base h-auto px-5 py-1.5 cursor-pointer"
             type="submit"

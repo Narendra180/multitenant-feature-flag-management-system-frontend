@@ -7,7 +7,8 @@ const nextConfig: NextConfig = {
     "coastal-aqua.narendrak.in",
     "apex-elec.narendrak.in",
     "urban-decor.narendrak.in"
-  ]
+  ],
+  output: "standalone"
 };
 
 export default nextConfig;

@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import SignupForm from "./SignupForm";
 
-const LoginPage = () => {
+const SignupPage = () => {
   return (
     <div className="h-screen flex justify-center items-center p-5">
       <Card className="w-full max-w-125 flex flex-col gap-6">
@@ -31,4 +31,4 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage;
+export default SignupPage;

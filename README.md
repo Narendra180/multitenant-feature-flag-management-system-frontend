@@ -10,6 +10,12 @@
 Please refer this:\
 https://nextjs.org/docs/app/api-reference/config/next-config-js/output
 
+### pm2 start command:
+PORT=portnumber pm2 start server.js --name "flag-frontend"
+
+### Demo Video: 
+https://drive.google.com/file/d/13Ymj7nVhyzY1eSA8dO2Agk7spmwko90m/view?usp=sharing
+
 ### Architechture:
 There will be 3 roles in this multi tenant application.\
 superadmin,
@@ -21,7 +27,6 @@ user
 * **user** can check whether a feature flag is enabled or not.
 
 ## Test Credentials:
-Demo Video: https://drive.google.com/file/d/13Ymj7nVhyzY1eSA8dO2Agk7spmwko90m/view?usp=sharing
 
 ### Superadmin - https://root.narendrak.in/
 **Email:** narendra.superadmin@gmail.com\
